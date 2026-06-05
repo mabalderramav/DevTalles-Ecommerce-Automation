@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "7.0.1.6134"
+}
+
+group = 'com.miasoftnanus.automation.core'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+// Generate JaCoCo XML reports in subprojects (where the tests usually live)
+subprojects {
+    apply plugin: 'jacoco'
+
+    tasks.withType(JacocoReport).configureEach {
+        reports {
+            xml.required = true
+            html.required = true
+        }
+    }
+}
+
+// Make root sonar wait for all subproject jacoco XMLs to be produced
+tasks.named("sonar") {
+    dependsOn(subprojects.collect { p -> p.tasks.matching { it.name == "jacocoTestReport" } })
+}
+
+// Configure coverage paths at the ROOT (this is what the scanner uses)
+sonarqube {
+    properties {
+        def reportPaths = subprojects.collect { p ->
+            p.layout.buildDirectory.file("reports/jacoco/test/jacocoTestReport.xml").get().asFile.absolutePath
+        }.join(",")
+
+        property "sonar.coverage.jacoco.xmlReportPaths", reportPaths
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
