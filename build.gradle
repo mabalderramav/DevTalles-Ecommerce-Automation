@@ -3,7 +3,7 @@ plugins {
     id "org.sonarqube" version "7.0.1.6134"
 }
 
-group = 'com.miasoftnanus.automation.core'
+group = 'com.miasoftnanus.devtalles.ecommerce.automation'
 version = '1.0-SNAPSHOT'
 
 repositories {
