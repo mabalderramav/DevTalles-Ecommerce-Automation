@@ -3,3 +3,5 @@ include 'core-utils'
 include 'core-environment'
 include 'core-configuration-properties'
 include 'core-api'
+
+include 'devtalles-ecommerce-core-api'
