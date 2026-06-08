@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.miasoftnanus.devtalles.ecommerce.automation.api.test'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":devtalles-ecommerce-core-api")
+
+    testImplementation 'org.assertj:assertj-core:3.27.7'
+    testImplementation platform('org.junit:junit-bom:6.1.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
