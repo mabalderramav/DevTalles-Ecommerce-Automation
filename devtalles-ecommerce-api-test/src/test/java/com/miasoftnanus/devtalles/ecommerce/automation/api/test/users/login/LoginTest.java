@@ -17,6 +17,7 @@ final class LoginTest {
     @Test
     @DisplayName("C10000001: Login in the WebApp with valid credentials")
     @Tag("regression")
+    @Tag("smoke")
     @Tag("C10000001")
     void C10000001LoginInTheWebAppWithValidCredentials() {
         // Given
