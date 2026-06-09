@@ -45,8 +45,6 @@ final class LoginTest {
         String messageActual = loginResponseDto.message();
 
         log.info("Login response: {}", loginResponseDto);
-        log.debug("Login response details: ID={}, Username={}, Name={}, Role={}, IsActive={}, Token={}, Message={}",
-                idActual, usernameActual, nameActual, roleActual, isActiveActual, tokenActual, messageActual);
 
         // Then
         assertSoftly(softly -> {
