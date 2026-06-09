@@ -4,12 +4,14 @@ import com.miasoftnanus.devtalles.ecommerce.automation.core.api.users.login.dtos
 import com.miasoftnanus.devtalles.ecommerce.automation.core.api.users.login.dtos.LoginResponseDto;
 import com.miasoftnanus.devtalles.ecommerce.automation.core.api.users.login.servicies.LoginService;
 import com.miasoftnanus.devtalles.ecommerce.automation.core.api.users.login.servicies.LoginServiceImpl;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
+@Log4j2
 @DisplayName("User -> Login")
 @Tag("devtalles-ecommerce-api-test")
 @Tag("LoginTest")
@@ -20,7 +22,7 @@ final class LoginTest {
     @Tag("smoke")
     @Tag("C10000001")
     void C10000001LoginInTheWebAppWithValidCredentials() {
-        // Given
+        log.info("Starting test C10000001LoginInTheWebAppWithValidCredentials");
         String usernameExpected = "ombalderramav";
         String passwordExpected = "$Oscar123$5";
         String nameExpected = "Oscar Martin Balderrama Vaca";
@@ -30,7 +32,9 @@ final class LoginTest {
         LoginRequestDto loginRequestDto = new LoginRequestDto(usernameExpected, passwordExpected);
         LoginService loginService = new LoginServiceImpl();
 
-        // When
+        log.info("Executing login with valid credentials");
+        log.info("Login request: username={}, password=********", usernameExpected);
+        log.debug("Login request details: {}", loginRequestDto);
         LoginResponseDto loginResponseDto = loginService.login(loginRequestDto);
         Integer idActual = loginResponseDto.user().id();
         String usernameActual = loginResponseDto.user().username();
@@ -39,6 +43,10 @@ final class LoginTest {
         Boolean isActiveActual = loginResponseDto.user().isActive();
         String tokenActual = loginResponseDto.token();
         String messageActual = loginResponseDto.message();
+
+        log.info("Login response: {}", loginResponseDto);
+        log.debug("Login response details: ID={}, Username={}, Name={}, Role={}, IsActive={}, Token={}, Message={}",
+                idActual, usernameActual, nameActual, roleActual, isActiveActual, tokenActual, messageActual);
 
         // Then
         assertSoftly(softly -> {
@@ -74,5 +82,7 @@ final class LoginTest {
                     .as("Message should match the expected value")
                     .isEqualTo(messageExpected);
         });
+
+        log.info("Login test completed successfully");
     }
 }
