@@ -2,7 +2,9 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout
+                    disableAnsi="false"
+                    pattern="%style{%d{yyyy-MM-dd HH:mm:ss}}{dim} %style{[%t]}{cyan} %highlight{%-5level}{FATAL=bright red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue, TRACE=magenta} %style{%logger{36}}{bright blue} - %msg%n"/>
         </Console>
         <File name="File" fileName="logs/devtalles-ecommerce-api-test.log" append="false">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
