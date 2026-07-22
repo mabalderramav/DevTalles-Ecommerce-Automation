@@ -22,7 +22,7 @@ public class RestAssuredLoginRepository implements LoginRepository {
 
     @Override
     public LoginResponseEntity login(LoginRequestEntity loginRequestEntity) {
-        String endpoint = "http://68.183.23.48:8100/api/Users/Login";
+        String endpoint = "http://68.183.23.48:8100/api/v1/Users/Login";
         String bodyRequest = """
                 {
                   "password": "%s",
@@ -36,8 +36,6 @@ public class RestAssuredLoginRepository implements LoginRepository {
         apiRequest.headers(headers);
 
         ApiResponse apiResponse = requestManager.post(apiRequest, endpoint);
-        var statusCode = apiResponse.statusCode();
-        var body = apiResponse.body();
 
         return fromJsonString(apiResponse.body(), LoginResponseEntity.class);
     }
